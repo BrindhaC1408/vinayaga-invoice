@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VINAYAGA FABRICS Invoice</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+
+body{
+    background:#d9d9d9;
+    font-family:Arial, sans-serif;
+    padding:15px;
+}
+
+/* ================= ENTRY FORM ================= */
+
+.form-section{
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+/* ================= INVOICE ================= */
+
+.invoice-box{
+    width:1400px;
+    margin:auto;
+    background:#fff;
+    padding:18px;
+}
+
+/* ================= HEADER ================= */
+
+.header-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.logo{
+    width:400px;
+    height:400px;
+    object-fit:contain;
+    display:block;
+}
+
+.company-name{
+    font-size:48px;
+    font-weight:700;
+    line-height:58px;
+}
+
+.company-address{
+    font-size:20px;
+    line-height:35px;
+    margin-top:8px;
+}
+
+.invoice-title{
+    font-size:48px;
+    font-weight:700;
+    text-align:center;
+}
+
+.invoice-line{
+    border-top:3px solid #000;
+    margin-top:12px;
+}
+
+.invoice-info{
+    width:100%;
+    margin-top:14px;
+}
+
+.invoice-info td{
+    padding:8px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* ================= SEPARATOR ================= */
+
+.separator{
+    border-top:3px solid #000;
+    margin-top:10px;
+}
+
+/* ================= CUSTOMER ================= */
+
+.customer-table{
+    width:100%;
+    margin-top:12px;
+}
+
+.customer-box{
+    min-height:190px;
+    font-size:20px;
+    line-height:46px;
+}
+
+.customer-name{
+    font-size:30px;
+    font-weight:500;
+}
+
+.invoice-total-title{
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.invoice-total{
+    text-align:center;
+    font-size:60px;
+    color:#4169e1;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+/* ================= GST BAR ================= */
+
+.gray-bar{
+    background:#d9d9d9;
+    padding:10px 14px;
+    font-size:22px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* ================= ITEMS ================= */
+
+.invoice-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.invoice-table th{
+    border-top:3px solid #4f67ff;
+    border-bottom:3px solid #000;
+    padding:12px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.invoice-table td{
+    padding:14px;
+    text-align:center;
+    font-size:22px;
+}
+
+.invoice-table th,
+.invoice-table td{
+    border-left:none;
+    border-right:none;
+}
+
+/* ================= BOTTOM ================= */
+
+.bottom-line{
+    border-top:3px solid #000;
+    margin-top:80px;
+}
+
+.bottom-table{
+    width:100%;
+    margin-top:10px;
+}
+
+.vfdc-box{
+    background:#d9d9d9;
+    width:180px;
+    padding:8px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.total-weight{
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.total-table{
+    width:100%;
+}
+
+.total-table td{
+    padding:4px;
+    font-size:24px;
+}
+
+.total-bold{
+    font-size:32px;
+    font-weight:bold;
+}
+
+/* ================= AMOUNT WORDS ================= */
+
+.amount-words{
+    background:#d9d9d9;
+    padding:10px;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:14px;
+}
+
+/* ================= BANK ================= */
+
+.bank-box{
+    border:3px solid #000;
+    padding:10px;
+    font-size:20px;
+    line-height:34px;
+}
+
+.signature{
+    float:right;
+    font-size:20px;
+    font-weight:bold;
+    margin-top:-20px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    text-align:center;
+    font-size:26px;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+@media print{
+    .no-print{
+        display:none;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= FORM ================= -->
+
+<div class="form-section no-print">
+
+<h3>Invoice Entry</h3>
+
+<div class="row">
+
+<div class="col-md-3">
+<label>Invoice Number</label>
+<input type="number" id="invoiceNo" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Invoice Date</label>
+<input type="date" id="invoiceDate" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>CUST DC #</label>
+<input type="text" id="custdc" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>VF DC #</label>
+<input type="text" id="vfdc" class="form-control">
+</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<label>Select Customer</label>
+
+<select id="customerDropdown"
+class="form-control"
+onchange="selectCustomer()">
+
+<option value="">Select Customer</option>
+
+<option value="0">R.A. ROLL GODOWN</option>
+
+<option value="1">GOLCHA GARMENTS</option>
+
+<option value="2">
+SELVAS KIDS WEARS INDIA PVT.LTD
+</option>
+
+<option value="3">MOTHER TEX</option>
+
+<option value="4">
+RAJKRUPA TEXTILES (INDIA) PVT LTD
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<hr>
+
+<h5>Add Item</h5>
+
+<div class="row">
+
+<div class="col-md-1">
+<label>#</label>
+<input type="number" id="serial" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Description</label>
+<input type="text" id="description" class="form-control">
+</div>
+
+<div class="col-md-1">
+<label>HSN</label>
+<input type="text" id="hsn" class="form-control">
+</div>
+
+<div class="col-md-1">
+<label>KGS</label>
+<input type="number" id="kgs" class="form-control">
+</div>
+
+<div class="col-md-1">
+<label>GRMS</label>
+<input type="number" id="grams" class="form-control">
+</div>
+
+<div class="col-md-2">
+<label>Rate/KG</label>
+<input type="number" id="rate" class="form-control">
+</div>
+
+<div class="col-md-2 d-flex align-items-end">
+
+<button class="btn btn-primary w-100"
+onclick="addItem()">
+
+Add Item
+
+</button>
+
+</div>
+
+</div>
+
+<br>
+
+<button class="btn btn-success"
+onclick="downloadPDF()">
+
+Download PDF
+
+</button>
+
+</div>
+
+<!-- ================= INVOICE ================= -->
+
+<div class="invoice-box" id="invoice">
+
+<!-- HEADER -->
+
+<table class="header-table">
+
+<tr>
+
+<td width="15%">
+
+<img src="vinayaga_logo.png" class="logo">
+
+</td>
+
+<td width="60%">
+
+<div class="company-name">
+VINAYAGA FABRICS
+</div>
+
+<div class="company-address">
+
+6/6-7, LRG LAYOUT I STREET,
+ABT ROAD KARUVAMPALAYAM<br>
+
+TIRUPUR 641604
+&nbsp;&nbsp;
+TAMIL NADU
+&nbsp;&nbsp;
+214-499-8360
+&nbsp;&nbsp;
+PAN: 33AHRPC5403D
+
+<br>
+
+<b>GSTIN:</b> 33AHRPC5403D1ZU
+&nbsp;&nbsp;
+<b>Phone No:</b> 9789455066
+
+</div>
+
+</td>
+
+<td width="25%">
+
+<div class="invoice-title">
+Invoice
+</div>
+
+<div class="invoice-line"></div>
+
+<table class="invoice-info">
+
+<tr>
+<td>Invoice #:</td>
+<td align="right" id="showInvoiceNo"></td>
+</tr>
+
+<tr>
+<td>Invoice Date:</td>
+<td align="right" id="showInvoiceDate"></td>
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+<div class="separator"></div>
+
+<!-- CUSTOMER -->
+
+<table class="customer-table">
+
+<tr>
+
+<td width="72%">
+
+<div class="customer-box">
+
+<b>To</b>
+
+<br>
+
+<div class="customer-name"
+id="showCustomer"></div>
+
+<div id="showAddress"></div>
+
+</div>
+
+</td>
+
+<td width="28%">
+
+<div class="invoice-total-title">
+INVOICE TOTAL
+</div>
+
+<div class="invoice-total">
+₹<span id="topTotal">0.00</span>
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
+<!-- GST BAR -->
+
+<div class="gray-bar">
+
+<div>
+# India Cust. GSTN:
+<span id="showGST"></span>
+</div>
+
+<div>
+CUST. DC
+<span id="showCustDC"></span>
+</div>
+
+</div>
+
+<!-- ITEMS -->
+
+<table class="invoice-table">
+
+<thead>
+
+<tr>
+
+<th width="5%">#</th>
+
+<th width="40%">Description</th>
+
+<th width="10%">HSN</th>
+
+<th width="10%">WEIGHT<br>Kgs.</th>
+
+<th width="10%">Grms.</th>
+
+<th width="10%">Rate<br>Per Kg</th>
+
+<th width="15%">Amount</th>
+
+</tr>
+
+</thead>
+
+<tbody id="invoiceItems">
+
+<tr style="height:220px;">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="bottom-line"></div>
+
+<!-- TOTAL -->
+
+<table class="bottom-table">
+
+<tr>
+
+<td width="35%">
+
+<div class="vfdc-box">
+VF DC #
+<span id="showVFDC"></span>
+</div>
+
+</td>
+
+<td width="25%" class="total-weight">
+
+Total Weight
+
+<br><br>
+
+<span id="totalWeight">0</span>
+
+</td>
+
+<td width="40%">
+
+<table class="total-table">
+
+<tr>
+<td><b>Sub Total</b></td>
+<td align="right">
+₹ <span id="subtotal">0.00</span>
+</td>
+</tr>
+
+<tr>
+<td><b>CGST –2.5%</b></td>
+<td align="right">
+₹ <span id="cgst">0.00</span>
+</td>
+</tr>
+
+<tr>
+<td><b>SGST –2.5%</b></td>
+<td align="right">
+₹ <span id="sgst">0.00</span>
+</td>
+</tr>
+
+<tr>
+<td><b>Round Of</b></td>
+<td align="right">
+₹ <span id="roundoff">0.00</span>
+</td>
+</tr>
+
+<tr class="total-bold">
+
+<td>Total</td>
+
+<td align="right">
+₹ <span id="grandTotal">0.00</span>
+</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+<!-- WORDS -->
+
+<div class="amount-words"
+id="amountWords">
+
+Zero Rupees Only
+
+</div>
+
+<!-- BANK -->
+
+<div class="bank-box">
+
+<b>BANK DETAILS</b><br>
+
+Bank Name: HDFC Bank<br>
+
+Account Holder Name:
+VINAYAGA FABRICS<br>
+
+Account Number:
+50200090239443<br>
+
+IFSC Code:
+HDFC0007198<br>
+
+Branch Name:
+Tirupur Main Branch
+
+<div class="signature">
+For VINAYAGA FABRICS
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+Thank you for your business
+</div>
+
+</div>
+
+<script>
+
+const customers = [
+
+{
+name:"R.A. ROLL GODOWN",
+address:`100/122 LAKSHMI NAGAR
+MAIN ROAD
+TIRUPUR 641602`,
+gst:"33AAFFR2830Q1ZY"
+},
+
+{
+name:"GOLCHA GARMENTS",
+address:`2/54C THANEERPANDAL COLONY
+GANDHI ROAD
+ANNUPURPALAYAMPUDUR
+TIRUPUR 641652`,
+gst:"33AEIPG9431P1Z4"
+},
+
+{
+name:"SELVAS KIDS WEARS INDIA PVT.LTD",
+address:`16/207-B, PALAPPALAYAM
+INGUR POST
+CHENNIMALAI
+ERODE - 638051`,
+gst:"33AASCS4056R1ZI"
+},
+
+{
+name:"MOTHER TEX",
+address:`SRI SAKTHI KALLASH COLLEGE ROAD
+KOLYATHOPPU
+KRISNANPUDUR
+AMMAPET
+SALEM - 636003`,
+gst:"33AAGHV5229L1ZS"
+},
+
+{
+name:"RAJKRUPA TEXTILES (INDIA) PVT LTD",
+address:`18/3/1 AND 216/1
+B/H SWASTIK BANSIDHAR ENG
+NAROL CHAR RASTA
+NAROL
+AHMEDABAD GUJARAT (INDIA)
+PIN - 382405`,
+gst:"24AALCR1783M1ZV"
+}
+
+];
+
+function selectCustomer(){
+
+let index =
+document.getElementById("customerDropdown").value;
+
+if(index === "") return;
+
+let customer = customers[index];
+
+document.getElementById("showCustomer").innerHTML =
+customer.name;
+
+document.getElementById("showAddress").innerHTML =
+customer.address.replace(/\\n/g,"<br>");
+
+document.getElementById("showGST").innerHTML =
+customer.gst;
+
+}
+
+let subtotal = 0;
+let totalWeight = 0;
+let firstRow = true;
+
+function addItem(){
+
+if(firstRow){
+
+document.getElementById("invoiceItems").innerHTML = "";
+
+firstRow = false;
+}
+
+let serial =
+document.getElementById("serial").value;
+
+let description =
+document.getElementById("description").value;
+
+let hsn =
+document.getElementById("hsn").value;
+
+let kgs =
+parseFloat(document.getElementById("kgs").value || 0);
+
+let grams =
+parseFloat(document.getElementById("grams").value || 0);
+
+let rate =
+parseFloat(document.getElementById("rate").value || 0);
+
+let weight = kgs + (grams / 1000);
+
+let amount = weight * rate;
+
+subtotal += amount;
+
+totalWeight += weight;
+
+let row = `
+<tr>
+<td>${serial}</td>
+<td>${description}</td>
+<td>${hsn}</td>
+<td>${kgs}</td>
+<td>${grams}</td>
+<td>₹ ${rate.toFixed(2)}</td>
+<td>
+₹ ${amount.toLocaleString('en-IN', {
+minimumFractionDigits: 2,
+maximumFractionDigits: 2
+})}
+</td>
+</tr>
+`;
+
+document.getElementById("invoiceItems")
+.innerHTML += row;
+
+calculateTotals();
+
+updateHeader();
+
+}
+
+function calculateTotals(){
+
+let cgst = subtotal * 0.025;
+
+let sgst = subtotal * 0.025;
+
+let total = subtotal + cgst + sgst;
+
+let rounded = Math.round(total);
+
+let roundoff = rounded - total;
+
+document.getElementById("subtotal").innerHTML =
+subtotal.toLocaleString('en-IN', {
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("cgst").innerHTML =
+cgst.toLocaleString('en-IN', {
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("sgst").innerHTML =
+sgst.toLocaleString('en-IN', {
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("roundoff").innerHTML =
+roundoff.toLocaleString('en-IN', {
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("grandTotal").innerHTML =
+rounded.toLocaleString('en-IN', {
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("topTotal").innerHTML =
+rounded.toLocaleString('en-IN', {
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("totalWeight").innerHTML =
+totalWeight.toFixed(3);
+
+document.getElementById("amountWords").innerHTML =
+numberToWords(rounded) + " Rupees Only";
+
+}
+
+function updateHeader(){
+
+document.getElementById("showInvoiceNo").innerHTML =
+document.getElementById("invoiceNo").value;
+
+document.getElementById("showInvoiceDate").innerHTML =
+document.getElementById("invoiceDate").value;
+
+document.getElementById("showVFDC").innerHTML =
+document.getElementById("vfdc").value;
+
+document.getElementById("showCustDC").innerHTML =
+document.getElementById("custdc").value;
+
+}
+
+function numberToWords(num){
+
+const a = [
+'', 'One', 'Two', 'Three', 'Four',
+'Five', 'Six', 'Seven', 'Eight',
+'Nine', 'Ten', 'Eleven', 'Twelve',
+'Thirteen', 'Fourteen', 'Fifteen',
+'Sixteen', 'Seventeen', 'Eighteen',
+'Nineteen'
+];
+
+const b = [
+'', '', 'Twenty', 'Thirty', 'Forty',
+'Fifty', 'Sixty', 'Seventy',
+'Eighty', 'Ninety'
+];
+
+function convert(n){
+
+if(n < 20) return a[n];
+
+if(n < 100)
+return b[Math.floor(n/10)] +
+" " + a[n%10];
+
+if(n < 1000)
+return a[Math.floor(n/100)] +
+" Hundred " + convert(n%100);
+
+if(n < 100000)
+return convert(Math.floor(n/1000)) +
+" Thousand " + convert(n%1000);
+
+if(n < 10000000)
+return convert(Math.floor(n/100000)) +
+" Lakh " + convert(n%100000);
+
+return "";
+
+}
+
+return convert(num);
+
+}
+
+async function downloadPDF(){
+
+const { jsPDF } = window.jspdf;
+
+const invoice =
+document.getElementById("invoice");
+
+const canvas =
+await html2canvas(invoice,{
+scale:4,
+useCORS:true
+});
+
+const imgData =
+canvas.toDataURL("image/png");
+
+const pdf =
+new jsPDF("l","mm","a4");
+
+const width = 297;
+
+const height =
+(canvas.height * width) / canvas.width;
+
+pdf.addImage(
+imgData,
+"PNG",
+0,
+0,
+width,
+height
+);
+
+pdf.save("VINAYAGA_INVOICE.pdf");
+
+}
+
+</script>
+
+</body>
+
+</html>
