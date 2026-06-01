@@ -34,7 +34,7 @@ body{
 /* ================= INVOICE ================= */
 
 .invoice-box{
-    width:1400px;
+    width:1200px;
     margin:auto;
     background:#fff;
     padding:18px;
@@ -84,7 +84,7 @@ body{
 
 .invoice-info td{
     padding:8px;
-    font-size:20px;
+    font-size:15px;
     font-weight:bold;
 }
 
@@ -326,6 +326,22 @@ SRI VAARI KNIT WEAR
 SYN CLOTHINGS
 </option>
 
+<option value="9">
+BABY GARMENTS
+</option>
+
+<option value="10">
+STERLAANS APPARELS
+</option>
+
+<option value="11">
+SKC GARMENTS
+</option>
+
+<option value="12">
+SENTHOOR TEX
+</option>
+
 
 </select>
 
@@ -405,8 +421,11 @@ Download PDF
 
 <td width="15%">
 
-<img src="vinayaga_logo.png" class="logo">
-
+<img
+    src="./vinayaga_logo.png"
+    class="logo"
+    crossorigin="anonymous"
+>
 </td>
 
 <td width="60%">
@@ -759,6 +778,30 @@ name:"SRI VAARI KNIT WEAR",
 address:` 20-A, GAYATHRI NAGAR, 2ND St PALAYAKKADU, MANNARAI (PO), TIRUPUR 641607`,
 gst:"33ASHPG1588L1ZI"
 },
+
+{
+name:"BABY GARMENTS",
+address:` 8/19, THIRUMALA NAGAR, 2ND CROSS STREET, P.N.ROAD, TIRUPUR 641602`,
+gst:"33EGIPK4455H1ZB"
+},
+
+{
+name:"STERLAANS APPARELS",
+address:` 15, THIYAGI KUMARAN COLONY, EAST N.R.K PURAM, MAIN ROAD, TIRUPUR 641607`,
+gst:"33ABOPH8814L1ZA"
+},
+
+{
+name:"SKC GARMENTS",
+address:`21B-1, 2ND STREET, SWAMNINATHAPURAM, ANUPPARAPALAYAM, TIRUPUR 641603`,
+gst:"33ABEFS1302E1ZW"
+},
+
+{
+name:"SENTHOOR TEX",
+address:`8/1465-B, R.S. PURAM 1ST STREET, PANDIYAN NAGAR, P.N. ROAD, TIRUPUR 641602`,
+gst:"33CRUPD3433P1ZC"
+},
 ];
 
 function selectCustomer(){
@@ -965,41 +1008,90 @@ return convert(num);
 
 async function downloadPDF(){
 
-const { jsPDF } = window.jspdf;
+    try{
 
-const invoice =
-document.getElementById("invoice");
+        updateHeader();
 
-const canvas =
-await html2canvas(invoice,{
-scale:4,
-useCORS:true
-});
+        const invoice =
+        document.getElementById("invoice");
 
-const imgData =
-canvas.toDataURL("image/png");
+        const canvas =
+        await html2canvas(invoice,{
+            scale:2,
+            useCORS:true,
+            backgroundColor:"#ffffff"
+        });
 
-const pdf =
-new jsPDF("l","mm","a4");
+        const imgData =
+        canvas.toDataURL("image/png");
 
-const width = 297;
+        const { jsPDF } = window.jspdf;
 
-const height =
-(canvas.height * width) / canvas.width;
+        const pdf =
+        new jsPDF("l","mm","a4");
 
-pdf.addImage(
-imgData,
-"PNG",
-0,
-0,
-width,
-height
-);
+        const pageWidth = 297;
+        const pageHeight = 210;
 
-pdf.save("VINAYAGA_INVOICE.pdf");
+        const imgWidth = pageWidth;
 
+        const imgHeight =
+        (canvas.height * imgWidth) /
+        canvas.width;
+
+        let heightLeft = imgHeight;
+
+        let position = 0;
+
+        pdf.addImage(
+            imgData,
+            "PNG",
+            0,
+            position,
+            imgWidth,
+            imgHeight
+        );
+
+        heightLeft -= pageHeight;
+
+        while(heightLeft > 0){
+
+            position =
+            heightLeft - imgHeight;
+
+            pdf.addPage();
+
+            pdf.addImage(
+                imgData,
+                "PNG",
+                0,
+                position,
+                imgWidth,
+                imgHeight
+            );
+
+            heightLeft -= pageHeight;
+        }
+
+        let invoiceNo =
+        document.getElementById("invoiceNo").value;
+
+        if(!invoiceNo){
+            invoiceNo = "0";
+        }
+
+        pdf.save(`${invoiceNo}.pdf`);
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "PDF generation failed. Please check logo path and browser console."
+        );
+    }
 }
-
 </script>
 
 </body>
