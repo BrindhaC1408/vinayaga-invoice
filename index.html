@@ -1008,89 +1008,47 @@ return convert(num);
 
 async function downloadPDF(){
 
-    try{
+    updateHeader();
 
-        updateHeader();
+    const invoice =
+    document.getElementById("invoice");
 
-        const invoice =
-        document.getElementById("invoice");
+    const canvas =
+    await html2canvas(invoice,{
+        scale:2,
+        useCORS:true,
+        backgroundColor:"#ffffff"
+    });
 
-        const canvas =
-        await html2canvas(invoice,{
-            scale:2,
-            useCORS:true,
-            backgroundColor:"#ffffff"
-        });
+    const imgData =
+    canvas.toDataURL("image/png");
 
-        const imgData =
-        canvas.toDataURL("image/png");
+    const { jsPDF } = window.jspdf;
 
-        const { jsPDF } = window.jspdf;
+    const pdf =
+    new jsPDF("l","mm","a4");
 
-        const pdf =
-        new jsPDF("l","mm","a4");
+    const pageWidth = 297;
+    const pageHeight = 210;
 
-        const pageWidth = 297;
-        const pageHeight = 210;
+    // Fit entire invoice into ONE page
+    pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        0,
+        pageWidth,
+        pageHeight
+    );
 
-        const imgWidth = pageWidth;
+    let invoiceNo =
+    document.getElementById("invoiceNo").value;
 
-        const imgHeight =
-        (canvas.height * imgWidth) /
-        canvas.width;
-
-        let heightLeft = imgHeight;
-
-        let position = 0;
-
-        pdf.addImage(
-            imgData,
-            "PNG",
-            0,
-            position,
-            imgWidth,
-            imgHeight
-        );
-
-        heightLeft -= pageHeight;
-
-        while(heightLeft > 0){
-
-            position =
-            heightLeft - imgHeight;
-
-            pdf.addPage();
-
-            pdf.addImage(
-                imgData,
-                "PNG",
-                0,
-                position,
-                imgWidth,
-                imgHeight
-            );
-
-            heightLeft -= pageHeight;
-        }
-
-        let invoiceNo =
-        document.getElementById("invoiceNo").value;
-
-        if(!invoiceNo){
-            invoiceNo = "0";
-        }
-
-        pdf.save(`${invoiceNo}.pdf`);
-
+    if(!invoiceNo){
+        invoiceNo = "0";
     }
-    catch(error){
 
-        console.error(error);
-
-        alert(
-            "PDF generation failed. Please check logo path and browser console."
-        );
-    }
+    pdf.save(`${invoiceNo}.pdf`);
 }
 </script>
 
