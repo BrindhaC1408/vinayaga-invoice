@@ -34,10 +34,13 @@ body{
 /* ================= INVOICE ================= */
 
 .invoice-box{
-    width:1200px;
+    width:794px;              /* A4 Portrait Width */
+    min-height:1123px;        /* A4 Portrait Height */
     margin:auto;
     background:#fff;
-    padding:18px;
+    padding:12px;
+    border:2px solid #000;
+    box-sizing:border-box;
 }
 
 /* ================= HEADER ================= */
@@ -48,43 +51,40 @@ body{
 }
 
 .logo{
-    width:400px;
-    height:400px;
-    object-fit:contain;
+    width:150px;
     display:block;
 }
-
 .company-name{
-    font-size:48px;
+    font-size:33px;
     font-weight:700;
-    line-height:58px;
+    line-height:28px;
 }
 
 .company-address{
-    font-size:20px;
-    line-height:35px;
-    margin-top:8px;
+    font-size:14px;
+    line-height:18px;
+    margin-top:4px;
 }
 
 .invoice-title{
-    font-size:48px;
+    font-size:22px;
     font-weight:700;
     text-align:center;
 }
 
 .invoice-line{
     border-top:3px solid #000;
-    margin-top:12px;
+    margin-top:10px;
 }
 
 .invoice-info{
     width:100%;
-    margin-top:14px;
+    margin-top:10px;
 }
 
 .invoice-info td{
-    padding:8px;
-    font-size:15px;
+    padding:6px;
+    font-size:13px;
     font-weight:bold;
 }
 
@@ -92,50 +92,65 @@ body{
 
 .separator{
     border-top:3px solid #000;
-    margin-top:10px;
+    margin-top:8px;
 }
 
 /* ================= CUSTOMER ================= */
 
 .customer-table{
     width:100%;
-    margin-top:12px;
+    margin-top:10px;
+}
+
+.customer-table td{
+    vertical-align:top;
 }
 
 .customer-box{
-    min-height:190px;
-    font-size:20px;
-    line-height:46px;
+    min-height:100px;
+    font-size:15px;
+    line-height:18px;
+    padding-bottom:10px;
 }
 
 .customer-name{
-    font-size:30px;
-    font-weight:500;
+    font-size:15px;
+    font-weight:bold;
+    margin-bottom:4px;
+}
+
+#showAddress{
+    line-height:16px;
 }
 
 .invoice-total-title{
-    text-align:center;
-    font-size:28px;
+    text-align:right;
+    font-size:18px;
     font-weight:bold;
+    margin-top:0;
+    margin-bottom:5px;
+    padding-right:0;
 }
 
 .invoice-total{
-    text-align:center;
-    font-size:60px;
+    text-align:right;
+    font-size:36px;
     color:#4169e1;
     font-weight:bold;
-    margin-top:12px;
+    margin:0;
+    padding-right:0;
+    line-height:1;
 }
-
 /* ================= GST BAR ================= */
 
 .gray-bar{
     background:#d9d9d9;
-    padding:10px 14px;
-    font-size:22px;
+    padding:6px 10px;
+    font-size:13px;
     font-weight:bold;
     display:flex;
     justify-content:space-between;
+    margin-bottom:15px;  
 }
 
 /* ================= ITEMS ================= */
@@ -146,18 +161,18 @@ body{
 }
 
 .invoice-table th{
-    border-top:3px solid #4f67ff;
-    border-bottom:3px solid #000;
-    padding:12px;
+    border-top:2px solid #4f67ff;
+    border-bottom:2px solid #000;
+    padding:5px;
     text-align:center;
-    font-size:24px;
+    font-size:12px;
     font-weight:bold;
 }
 
 .invoice-table td{
-    padding:14px;
+    padding:4px;
     text-align:center;
-    font-size:22px;
+    font-size:11px;
 }
 
 .invoice-table th,
@@ -168,83 +183,123 @@ body{
 
 /* ================= BOTTOM ================= */
 
-.bottom-line{
-    border-top:3px solid #000;
-    margin-top:80px;
+.bottom-table td{
+    vertical-align:top;
 }
-
-.bottom-table{
-    width:100%;
-    margin-top:10px;
-}
-
 .vfdc-box{
+    background:#d9d9d9;
+    width:220px;
+    padding:10px;
+    font-size:14px;
+    font-weight:bold;
+}
+/* .vfdc-box{
     background:#d9d9d9;
     width:180px;
     padding:8px;
-    font-size:24px;
+    font-size:14px;
     font-weight:bold;
+    margin-top:0;
+} */
+.total-table{
+    width:250px;
+    margin-left:auto;
+    margin-right:0;
+}
+
+.total-table td{
+    padding:2px 4px;
+    font-size:13px;
+}
+
+.total-table td:first-child{
+    text-align:left;
+    white-space:nowrap;
+}
+
+.total-table td:last-child{
+    text-align:right;
+    width:140px;
+    white-space:nowrap;
+}
+
+.weight-box{
+    margin-top:0;
+    text-align:center;
 }
 
 .total-weight{
     text-align:center;
-    font-size:24px;
+    font-size:12px;
     font-weight:bold;
 }
 
-.total-table{
-    width:100%;
+.item-row td{
+    font-size: 13px;
+    padding-top:10px;
+    padding-bottom:10px;
+    /* border-bottom:1px solid #000; */
 }
 
-.total-table td{
-    padding:4px;
-    font-size:24px;
+.total-bold td{
+    font-size:14px;
+    font-weight:700;
 }
-
-.total-bold{
-    font-size:32px;
-    font-weight:bold;
+.bottom-line{
+    border-top:2px solid #000;
+    margin-top:10px;
 }
 
 /* ================= AMOUNT WORDS ================= */
 
 .amount-words{
     background:#d9d9d9;
-    padding:10px;
-    font-size:22px;
+    padding:6px;
+    font-size:13px;
     font-weight:bold;
-    margin-top:14px;
+    margin-top:5px;
 }
 
 /* ================= BANK ================= */
 
 .bank-box{
-    border:3px solid #000;
-    padding:10px;
-    font-size:20px;
-    line-height:34px;
+    border:2px solid #000;
+    padding:8px;
+    font-size:16px;
+    line-height:18px;
 }
 
 .signature{
     float:right;
-    font-size:20px;
+    font-size:15px;
     font-weight:bold;
-    margin-top:-20px;
 }
 
 /* ================= FOOTER ================= */
 
 .footer{
     text-align:center;
-    font-size:26px;
+    font-size:18px;
     font-weight:bold;
-    margin-top:12px;
+    margin-top:5px;
 }
 
+#emptyRow{
+    height:20px;
+}
+/* ================= PDF / PRINT ================= */
+
 @media print{
+
+    body{
+        background:#fff;
+        padding:0;
+    }
+
     .no-print{
         display:none;
     }
+
 }
 
 </style>
@@ -487,20 +542,21 @@ Invoice
 
 <!-- CUSTOMER -->
 
+<!-- CUSTOMER -->
+
 <table class="customer-table">
 
 <tr>
 
-<td width="72%">
+<td width="65%">
 
 <div class="customer-box">
 
 <b>To</b>
 
-<br>
+<br><br>
 
-<div class="customer-name"
-id="showCustomer"></div>
+<div class="customer-name" id="showCustomer"></div>
 
 <div id="showAddress"></div>
 
@@ -508,7 +564,7 @@ id="showCustomer"></div>
 
 </td>
 
-<td width="28%">
+<td width="35%" style="vertical-align:top;text-align:right;">
 
 <div class="invoice-total-title">
 INVOICE TOTAL
@@ -568,7 +624,7 @@ CUST. DC
 
 <tbody id="invoiceItems">
 
-<tr style="height:220px;">
+<tr style="height:10px;">
 <td></td>
 <td></td>
 <td></td>
@@ -583,82 +639,67 @@ CUST. DC
 </table>
 
 <div class="bottom-line"></div>
-
+<div style="height:15px;"></div>
 <!-- TOTAL -->
 
 <table class="bottom-table">
 
-<tr>
+<tr valign="top">
 
-<td width="35%">
+    <td width="30%">
 
-<div class="vfdc-box">
-VF DC #
-<span id="showVFDC"></span>
-</div>
+        <div class="vfdc-box">
+            VF DC # <span id="showVFDC"></span>
+        </div>
 
-</td>
+    </td>
 
-<td width="25%" class="total-weight">
+    <td width="25%" class="total-weight">
 
-Total Weight
+        <div class="weight-box">
+            Total Weight
+            <br><br>
+            <span id="totalWeight">0</span>
+        </div>
 
-<br><br>
+    </td>
 
-<span id="totalWeight">0</span>
+    <td width="30%" align="right">
 
-</td>
+        <table class="total-table" style="margin-left:auto;">
 
-<td width="40%">
+            <tr>
+                <td><b>Sub Total</b></td>
+                <td align="right">₹ <span id="subtotal">0.00</span></td>
+            </tr>
 
-<table class="total-table">
+            <tr>
+                <td><b>CGST –2.5%</b></td>
+                <td align="right">₹ <span id="cgst">0.00</span></td>
+            </tr>
 
-<tr>
-<td><b>Sub Total</b></td>
-<td align="right">
-₹ <span id="subtotal">0.00</span>
-</td>
-</tr>
+            <tr>
+                <td><b>SGST –2.5%</b></td>
+                <td align="right">₹ <span id="sgst">0.00</span></td>
+            </tr>
 
-<tr>
-<td><b>CGST –2.5%</b></td>
-<td align="right">
-₹ <span id="cgst">0.00</span>
-</td>
-</tr>
+            <tr>
+                <td><b>Round Of</b></td>
+                <td align="right">₹ <span id="roundoff">0.00</span></td>
+            </tr>
 
-<tr>
-<td><b>SGST –2.5%</b></td>
-<td align="right">
-₹ <span id="sgst">0.00</span>
-</td>
-</tr>
+            <tr class="total-bold">
+                <td>Total</td>
+                <td align="right">₹ <span id="grandTotal">0.00</span></td>
+            </tr>
 
-<tr>
-<td><b>Round Of</b></td>
-<td align="right">
-₹ <span id="roundoff">0.00</span>
-</td>
-</tr>
+        </table>
 
-<tr class="total-bold">
-
-<td>Total</td>
-
-<td align="right">
-₹ <span id="grandTotal">0.00</span>
-</td>
+    </td>
 
 </tr>
 
 </table>
-
-</td>
-
-</tr>
-
-</table>
-
 <!-- WORDS -->
 
 <div class="amount-words"
@@ -667,6 +708,7 @@ id="amountWords">
 Zero Rupees Only
 
 </div>
+<br>
 
 <!-- BANK -->
 
@@ -717,8 +759,7 @@ gst:"33AAFFR2830Q1ZY"
 {
 name:"GOLCHA GARMENTS",
 address:`2/54C THANEERPANDAL COLONY
-GANDHI ROAD
-ANNUPURPALAYAMPUDUR
+GANDHI ROAD ANNUPURPALAYAMPUDUR
 TIRUPUR 641652`,
 gst:"33AEIPG9431P1Z4"
 },
@@ -726,8 +767,7 @@ gst:"33AEIPG9431P1Z4"
 {
 name:"SELVAS KIDS WEARS INDIA PVT.LTD",
 address:`16/207-B, PALAPPALAYAM
-INGUR POST
-CHENNIMALAI
+INGUR POST CHENNIMALAI
 ERODE - 638051`,
 gst:"33AASCS4056R1ZI"
 },
@@ -735,9 +775,7 @@ gst:"33AASCS4056R1ZI"
 {
 name:"MOTHER TEX",
 address:`SRI SAKTHI KALLASH COLLEGE ROAD
-KOLYATHOPPU
-KRISNANPUDUR
-AMMAPET
+KOLYATHOPPU KRISNANPUDUR AMMAPET
 SALEM - 636003`,
 gst:"33AAGHV5229L1ZS"
 },
@@ -746,81 +784,88 @@ gst:"33AAGHV5229L1ZS"
 name:"RAJKRUPA TEXTILES (INDIA) PVT LTD",
 address:`18/3/1 AND 216/1
 B/H SWASTIK BANSIDHAR ENG
-NAROL CHAR RASTA
-NAROL
-AHMEDABAD GUJARAT (INDIA)
+NAROL CHAR RASTA NAROL
+AHMEDABAD GUJARAT(INDIA)
 PIN - 382405`,
 gst:"24AALCR1783M1ZV"
 },
 
 {
 name:"NITHIN KNIT CREATIONS",
-address:`3A, PERIYA THOOTTAM, OPP. POTHIGAI NAGAR, VELAMPALAYAM POST. SOLIPALAYAM TIRUPUR 641 652`,
+address:`3A, PERIYA THOOTTAM,OPP.POTHIGAI NAGAR,
+VELAMPALAYAM POST,SOLIPALAYAM,
+TIRUPUR 641652`,
 gst:"33AAKFN9800B1ZK"
 },
 
 {
 name:"TEEMWORK CREATIONS",
-address:`1/52 G, GIRI NAGAR. KULLATHUPUTHUR.
-MANGALAM ROAD, ANDIPALAYAM (P.O),
+address:`1/52 G,GIRI NAGAR.KULLATHUPUTHUR.
+MANGALAM ROAD,ANDIPALAYAM (P.O),
 TIRUPUR 641 687`,
 gst:"33AAIFT5308E1ZF"
 },
 
 {
 name:"SYN CLOTHINGS",
-address:`NO: 5/ 96/ 48, KALICO COLONY, CHENNIMALAI - 638051`,
+address:`NO: 5/ 96/ 48,KALICO COLONY,
+CHENNIMALAI - 638051`,
 gst:"33AICPY1200A1Z3"
 },
 
 {
 name:"SRI VAARI KNIT WEAR",
-address:` 20-A, GAYATHRI NAGAR, 2ND St PALAYAKKADU, MANNARAI (PO), TIRUPUR 641607`,
+address:` 20-A,GAYATHRI NAGAR,2ND St 
+PALAYAKKADU,MANNARAI (PO),TIRUPUR 641607`,
 gst:"33ASHPG1588L1ZI"
 },
 
 {
 name:"BABY GARMENTS",
-address:` 8/19, THIRUMALA NAGAR, 2ND CROSS STREET, P.N.ROAD, TIRUPUR 641602`,
+address:` 8/19,THIRUMALA NAGAR,2ND CROSS STREET,
+P.N.ROAD,TIRUPUR 641602`,
 gst:"33EGIPK4455H1ZB"
 },
 
 {
 name:"STERLAANS APPARELS",
-address:` 15, THIYAGI KUMARAN COLONY, EAST N.R.K PURAM, MAIN ROAD, TIRUPUR 641607`,
+address:` 15, THIYAGI KUMARAN COLONY,
+EAST N.R.K PURAM MAIN ROAD,TIRUPUR 641607`,
 gst:"33ABOPH8814L1ZA"
 },
 
 {
 name:"SKC GARMENTS",
-address:`21B-1, 2ND STREET, SWAMNINATHAPURAM, ANUPPARAPALAYAM, TIRUPUR 641603`,
+address:`21B-1,2ND STREET,SWAMNINATHAPURAM, 
+ANUPPARAPALAYAM,TIRUPUR 641603`,
 gst:"33ABEFS1302E1ZW"
 },
 
 {
 name:"SENTHOOR TEX",
-address:`8/1465-B, R.S. PURAM 1ST STREET, PANDIYAN NAGAR, P.N. ROAD, TIRUPUR 641602`,
+address:`8/1465-B, R.S. PURAM 1ST STREET, 
+PANDIYAN NAGAR,P.N. ROAD,TIRUPUR 641602`,
 gst:"33CRUPD3433P1ZC"
 },
 ];
 
 function selectCustomer(){
 
-let index =
-document.getElementById("customerDropdown").value;
+    let index =
+    document.getElementById("customerDropdown").value;
 
-if(index === "") return;
+    if(index === "") return;
 
-let customer = customers[index];
+    let customer = customers[index];
 
-document.getElementById("showCustomer").innerHTML =
-customer.name;
+    document.getElementById("showCustomer").innerHTML =
+    customer.name;
 
-document.getElementById("showAddress").innerHTML =
-customer.address.replace(/\\n/g,"<br>");
+    document.getElementById("showAddress").innerHTML =
+    customer.address.replace(/\n/g,"<br>");
 
-document.getElementById("showGST").innerHTML =
-customer.gst;
+    document.getElementById("showGST").innerHTML =
+    customer.gst;
 
 }
 
@@ -864,7 +909,7 @@ subtotal += amount;
 totalWeight += weight;
 
 let row = `
-<tr>
+<tr class="item-row">
 <td>${serial}</td>
 <td>${description}</td>
 <td>${hsn}</td>
@@ -872,9 +917,9 @@ let row = `
 <td>${grams}</td>
 <td>₹ ${rate.toFixed(2)}</td>
 <td>
-₹ ${amount.toLocaleString('en-IN', {
-minimumFractionDigits: 2,
-maximumFractionDigits: 2
+₹ ${amount.toLocaleString('en-IN',{
+minimumFractionDigits:2,
+maximumFractionDigits:2
 })}
 </td>
 </tr>
@@ -1015,7 +1060,7 @@ async function downloadPDF(){
 
     const canvas =
     await html2canvas(invoice,{
-        scale:2,
+        scale:3,
         useCORS:true,
         backgroundColor:"#ffffff"
     });
@@ -1025,13 +1070,15 @@ async function downloadPDF(){
 
     const { jsPDF } = window.jspdf;
 
-    const pdf =
-    new jsPDF("l","mm","a4");
+    const pdf = new jsPDF({
+    orientation:"portrait",
+    unit:"mm",
+    format:"a4"
+    });
 
-    const pageWidth = 297;
-    const pageHeight = 210;
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
 
-    // Fit entire invoice into ONE page
     pdf.addImage(
         imgData,
         "PNG",
@@ -1041,15 +1088,10 @@ async function downloadPDF(){
         pageHeight
     );
 
-    let invoiceNo =
-    document.getElementById("invoiceNo").value;
-
-    if(!invoiceNo){
-        invoiceNo = "0";
-    }
-
+    let invoiceNo = document.getElementById("invoiceNo").value || "0";
     pdf.save(`${invoiceNo}.pdf`);
 }
+
 </script>
 
 </body>
