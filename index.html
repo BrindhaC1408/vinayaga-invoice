@@ -1060,14 +1060,12 @@ async function downloadPDF(){
 
     const canvas =
     await html2canvas(invoice,{
-        scale:3,
+        scale:2,
         useCORS:true,
         backgroundColor:"#ffffff"
     });
 
-    const imgData =
-    canvas.toDataURL("image/png");
-
+    const imgData = canvas.toDataURL("image/jpeg",0.9);
     const { jsPDF } = window.jspdf;
 
     const pdf = new jsPDF({
@@ -1081,7 +1079,7 @@ async function downloadPDF(){
 
     pdf.addImage(
         imgData,
-        "PNG",
+        "JPEG",
         0,
         0,
         pageWidth,
