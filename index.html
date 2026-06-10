@@ -995,8 +995,21 @@ function updateHeader(){
 document.getElementById("showInvoiceNo").innerHTML =
 document.getElementById("invoiceNo").value;
 
-document.getElementById("showInvoiceDate").innerHTML =
-document.getElementById("invoiceDate").value;
+let dateValue = document.getElementById("invoiceDate").value;
+
+if(dateValue){
+
+    let date = new Date(dateValue);
+
+    let formattedDate = date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    });
+
+    document.getElementById("showInvoiceDate").innerHTML =
+    formattedDate;
+}
 
 document.getElementById("showVFDC").innerHTML =
 document.getElementById("vfdc").value;
