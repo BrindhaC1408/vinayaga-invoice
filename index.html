@@ -235,10 +235,10 @@ body{
 }
 
 .item-row td{
-    font-size: 13px;
+    font-size:13px;
     padding-top:10px;
     padding-bottom:10px;
-    /* border-bottom:1px solid #000; */
+    border-bottom:1px solid #000;
 }
 
 .total-bold td{
@@ -645,8 +645,11 @@ CUST. DC
 
 </table>
 
+<div style="height:20px;"></div>
+
 <div class="bottom-line"></div>
-<div style="height:15px;"></div>
+
+<div style="height:20px;"></div>
 <!-- TOTAL -->
 
 <table class="bottom-table">
@@ -954,6 +957,17 @@ calculateTotals();
 
 updateHeader();
 
+// Clear fields for next entry
+document.getElementById("serial").value = "";
+document.getElementById("description").value = "";
+document.getElementById("hsn").value = "";
+document.getElementById("kgs").value = "";
+document.getElementById("grams").value = "";
+document.getElementById("rate").value = "";
+
+// Focus back to Serial No
+document.getElementById("serial").focus();
+
 }
 
 function calculateTotals(){
@@ -1122,7 +1136,18 @@ async function downloadPDF(){
     );
 
     let invoiceNo = document.getElementById("invoiceNo").value || "0";
+
     pdf.save(`${invoiceNo}.pdf`);
+
+    setTimeout(function(){
+
+        subtotal = 0;
+        totalWeight = 0;
+        firstRow = true;
+
+        location.reload();
+
+    },1000);
 }
 
 </script>
