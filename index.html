@@ -14,6 +14,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
 
 body{
@@ -52,18 +54,51 @@ body{
 
 .logo{
     width:150px;
+    height:auto;
     display:block;
+    margin-right:10px;
 }
+
 .company-name{
-    font-size:33px;
+    font-family:'Cinzel', serif;
+    font-size:42px;
     font-weight:700;
-    line-height:28px;
+    color:#d48a00;
+    white-space:nowrap;
+    line-height:1;
+    margin-bottom:5px;
+    text-align:center;
+}
+
+.company-tagline{
+    font-family:'Cinzel', serif;
+    font-size:13px;
+    letter-spacing:3px;
+    color:#d48a00;
+    text-align:center;
+    margin:6px 0;
+    font-weight:700;
+}
+
+.gold-divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:6px 0;
+}
+
+.gold-divider .ornament-img{
+    max-width:450px;
+    width:90%;
+    height:auto;
+    display:block;
 }
 
 .company-address{
-    font-size:14px;
+    font-size:11px;
     line-height:18px;
-    margin-top:4px;
+    font-weight:600;
+    text-align:center;
 }
 
 .invoice-title{
@@ -365,6 +400,7 @@ SELVAS KIDS WEARS INDIA PVT.LTD
 <option value="4">
 RAJKRUPA TEXTILES (INDIA) PVT LTD
 </option>
+
 <option value="5">
 NITHIN KNIT CREATIONS
 </option>
@@ -374,11 +410,11 @@ TEEMWORK CREATIONS
 </option>
 
 <option value="7">
-SRI VAARI KNIT WEAR
+SYN CLOTHINGS
 </option>
 
 <option value="8">
-SYN CLOTHINGS
+SRI VAARI KNIT WEAR
 </option>
 
 <option value="9">
@@ -481,43 +517,45 @@ Download PDF
 
 <tr>
 
-<td width="15%">
+<td width="15%" style="vertical-align: middle;">
 
 <img
-    src="./vinayaga_logo.png"
+    src="./logo_circle_full.png"
     class="logo"
     crossorigin="anonymous"
 >
 </td>
 
-<td width="60%">
+<td width="60%" style="vertical-align: top; text-align:left;">
 
 <div class="company-name">
 VINAYAGA FABRICS
 </div>
 
-<div class="company-address">
+<div class="gold-divider">
+    <img src="./ornament.png" class="ornament-img" crossorigin="anonymous">
+</div>
 
+<div class="company-tagline">
+    • QUALITY FABRICS, TRUSTED ALWAYS •
+</div>
+
+<div class="company-address">
 6/6-7, LRG LAYOUT I STREET,
 ABT ROAD KARUVAMPALAYAM<br>
 
-TIRUPUR 641604
-&nbsp;&nbsp;
+TIRUPUR 641604  
 TAMIL NADU
-&nbsp;&nbsp;
 PAN: 33AHRPC5403D
 
 <br>
-
-<b>GSTIN:</b> 33AHRPC5403D1ZU
-&nbsp;&nbsp;
+<b>GSTIN:</b> 33AHRPC5403D1ZU  
 <b>Phone No:</b> 9789455066
-
 </div>
 
 </td>
 
-<td width="25%">
+<td width="30%" style="vertical-align: middle; text-align:right;">
 
 <div class="invoice-title">
 Invoice
